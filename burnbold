@@ -1,0 +1,1268 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BURNBOLD HQ | Version 3</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f4f9;
+    color: #172033;
+}
+
+button, input, textarea, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* LOGIN */
+
+#loginScreen {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #07152e, #173c70);
+}
+
+.login-box {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px #0003;
+}
+
+.logo {
+    color: #153d70;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.tagline {
+    text-align: center;
+    color: #78849a;
+    margin: 8px 0 25px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #d5dce7;
+    border-radius: 7px;
+    outline: none;
+    background: white;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #2466ad;
+}
+
+.primary-btn {
+    background: #153d70;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 7px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.primary-btn:hover {
+    background: #245c9e;
+}
+
+.small-note {
+    color: #7b8493;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* MAIN APP */
+
+#app {
+    min-height: 100vh;
+}
+
+.topbar {
+    background: #0b1c38;
+    color: white;
+    padding: 17px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.topbar h2 {
+    letter-spacing: 2px;
+}
+
+.topbar button {
+    background: #e7edf5;
+    color: #132c50;
+    padding: 9px 14px;
+    border-radius: 6px;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 65px);
+}
+
+.sidebar {
+    width: 220px;
+    background: #102747;
+    color: white;
+    padding: 20px 12px;
+    flex-shrink: 0;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin: 5px 0;
+    text-align: left;
+    color: #dce6f5;
+    background: transparent;
+    border-radius: 7px;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #244c7c;
+    color: white;
+}
+
+.sidebar-label {
+    color: #8fa8c8;
+    font-size: 11px;
+    margin: 20px 12px 8px;
+    letter-spacing: 1px;
+}
+
+.main {
+    flex: 1;
+    padding: 30px;
+    min-width: 0;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page h1 {
+    margin-bottom: 8px;
+    color: #142e52;
+}
+
+.subtitle {
+    color: #78849a;
+    margin-bottom: 25px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+    margin: 20px 0;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 11px;
+    box-shadow: 0 3px 12px #1720330b;
+}
+
+.card h3 {
+    font-size: 14px;
+    color: #78849a;
+    margin-bottom: 12px;
+}
+
+.card strong {
+    font-size: 27px;
+    color: #173d70;
+}
+
+.panel {
+    background: white;
+    padding: 22px;
+    border-radius: 11px;
+    margin: 18px 0;
+    box-shadow: 0 3px 12px #1720330b;
+}
+
+.panel h2 {
+    color: #173d70;
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+.item {
+    padding: 14px 0;
+    border-bottom: 1px solid #edf0f5;
+    overflow-wrap: anywhere;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item p {
+    color: #7b8493;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.danger-btn {
+    background: #ffe7e7;
+    color: #a52b2b;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-top: 8px;
+}
+
+.secondary-btn {
+    background: #e8eef7;
+    color: #173d70;
+    padding: 9px 13px;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: #dce8f7;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #173d70;
+    font-size: 25px;
+    font-weight: bold;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.message {
+    padding: 13px;
+    border-radius: 8px;
+    background: #edf3fb;
+    margin: 10px 0;
+}
+
+.message strong {
+    color: #173d70;
+}
+
+.message p {
+    margin-top: 6px;
+    overflow-wrap: anywhere;
+}
+
+.message small {
+    color: #7b8493;
+}
+
+.status {
+    display: inline-block;
+    background: #e3f5e9;
+    color: #247443;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.status.pending {
+    background: #fff1d8;
+    color: #936315;
+}
+
+.empty {
+    color: #8a94a4;
+    padding: 15px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 13px;
+    color: #35445c;
+}
+
+.inline-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.inline-check input {
+    width: auto;
+    margin: 0;
+}
+
+.inline-check label {
+    font-weight: normal;
+}
+
+@media (max-width: 700px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        padding: 8px;
+    }
+
+    .sidebar button {
+        width: auto;
+        min-width: max-content;
+        margin: 3px;
+    }
+
+    .sidebar-label {
+        display: none;
+    }
+
+    .main {
+        padding: 18px;
+    }
+
+    .topbar {
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN SCREEN -->
+
+<div id="loginScreen">
+    <div class="login-box">
+        <div class="logo">BURNBOLD</div>
+        <div class="tagline">Dream Without Limits</div>
+
+        <form id="loginForm">
+            <label>Username</label>
+            <input id="loginUsername" required placeholder="Enter username">
+
+            <label>Password</label>
+            <input id="loginPassword" type="password" required placeholder="Enter password">
+
+            <button class="primary-btn" type="submit">Login to HQ</button>
+        </form>
+
+        <div class="small-note">
+            BURNBOLD HQ Version 3 prototype
+        </div>
+    </div>
+</div>
+
+<!-- MAIN APPLICATION -->
+
+<div id="app" class="hidden">
+
+    <header class="topbar">
+        <h2>BURNBOLD HQ</h2>
+        <button onclick="logout()">Logout</button>
+    </header>
+
+    <div class="layout">
+
+        <aside class="sidebar">
+            <button class="active" onclick="showPage('dashboard', this)">Dashboard</button>
+            <button onclick="showPage('tasks', this)">Tasks</button>
+            <button onclick="showPage('messages', this)">Messages</button>
+            <button onclick="showPage('files', this)">Files</button>
+            <button onclick="showPage('profile', this)">My Profile</button>
+
+            <div id="ceoNavigation">
+                <div class="sidebar-label">CEO CONTROLS</div>
+                <button onclick="showPage('accounts', this)">Accounts</button>
+                <button onclick="showPage('permissions', this)">Permissions</button>
+            </div>
+        </aside>
+
+        <main class="main">
+
+            <!-- DASHBOARD -->
+
+            <section id="dashboard" class="page active">
+                <h1>Dashboard</h1>
+                <p class="subtitle" id="welcomeText">Welcome to BURNBOLD HQ.</p>
+
+                <div class="cards">
+                    <div class="card">
+                        <h3>Employees</h3>
+                        <strong id="employeeCount">0</strong>
+                    </div>
+
+                    <div class="card">
+                        <h3>Total Tasks</h3>
+                        <strong id="taskCount">0</strong>
+                    </div>
+
+                    <div class="card">
+                        <h3>Completed Tasks</h3>
+                        <strong id="completedCount">0</strong>
+                    </div>
+
+                    <div class="card">
+                        <h3>Messages</h3>
+                        <strong id="messageCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Recent Activity</h2>
+                    <div id="recentActivity"></div>
+                </div>
+            </section>
+
+            <!-- ACCOUNTS -->
+
+            <section id="accounts" class="page">
+                <h1>Employee Accounts</h1>
+                <p class="subtitle">Create and manage employee accounts.</p>
+
+                <div class="panel">
+                    <h2>Create Employee Account</h2>
+
+                    <form id="employeeForm">
+                        <label>Employee Name</label>
+                        <input id="employeeName" required placeholder="Employee's full name">
+
+                        <label>Username</label>
+                        <input id="employeeUsername" required placeholder="Choose a username">
+
+                        <label>Password</label>
+                        <input id="employeePassword" type="password" required minlength="6" placeholder="At least 6 characters">
+
+                        <button class="primary-btn" type="submit">Create Account</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Employee List</h2>
+                    <div id="employeeList"></div>
+                </div>
+            </section>
+
+            <!-- TASKS -->
+
+            <section id="tasks" class="page">
+                <h1>Tasks</h1>
+                <p class="subtitle">Manage company work and assignments.</p>
+
+                <div class="panel" id="createTaskPanel">
+                    <h2>Create New Task</h2>
+
+                    <form id="taskForm">
+                        <label>Task Title</label>
+                        <input id="taskTitle" required placeholder="Enter task title">
+
+                        <label>Task Description</label>
+                        <textarea id="taskDescription" rows="3" placeholder="Describe the task"></textarea>
+
+                        <label>Assign To</label>
+                        <select id="taskAssignee" required></select>
+
+                        <button class="primary-btn" type="submit">Assign Task</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Task List</h2>
+                    <div id="taskList"></div>
+                </div>
+            </section>
+
+            <!-- MESSAGES -->
+
+            <section id="messages" class="page">
+                <h1>Company Messages</h1>
+                <p class="subtitle">Communicate with your company team.</p>
+
+                <div class="panel">
+                    <h2>Message Board</h2>
+                    <div id="messageList"></div>
+                </div>
+
+                <div class="panel" id="messageComposer">
+                    <h2>Send a Message</h2>
+
+                    <form id="messageForm">
+                        <textarea id="messageText" required rows="3" placeholder="Write your message..."></textarea>
+                        <button class="primary-btn" type="submit">Send Message</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- FILES -->
+
+            <section id="files" class="page">
+                <h1>Company Files</h1>
+                <p class="subtitle">Upload and view shared files in this browser.</p>
+
+                <div class="panel">
+                    <h2>Upload a File</h2>
+
+                    <form id="fileForm">
+                        <label>Select a file (maximum 1 MB)</label>
+                        <input type="file" id="fileInput" required>
+                        <button class="primary-btn" type="submit">Upload File</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Uploaded Files</h2>
+                    <div id="fileList"></div>
+                </div>
+            </section>
+
+            <!-- PROFILE -->
+
+            <section id="profile" class="page">
+                <h1>My Profile</h1>
+                <p class="subtitle">View and update your employee profile.</p>
+
+                <div class="panel">
+                    <div class="profile">
+                        <div class="avatar" id="profileAvatar">B</div>
+                        <div>
+                            <h2 id="profileName">Name</h2>
+                            <p id="profileRole">Role</p>
+                        </div>
+                    </div>
+
+                    <form id="profileForm">
+                        <label>Display Name</label>
+                        <input id="profileNameInput" required>
+
+                        <label>Profile Picture</label>
+                        <input type="file" id="profilePicture" accept="image/*">
+
+                        <button class="primary-btn" type="submit">Save Profile</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- PERMISSIONS -->
+
+            <section id="permissions" class="page">
+                <h1>CEO Permissions</h1>
+                <p class="subtitle">Control which features employees can use.</p>
+
+                <div class="panel">
+                    <h2>Employee Permissions</h2>
+
+                    <div class="inline-check">
+                        <input type="checkbox" id="allowMessages">
+                        <label for="allowMessages">Allow employees to send messages</label>
+                    </div>
+
+                    <div class="inline-check">
+                        <input type="checkbox" id="allowUploads">
+                        <label for="allowUploads">Allow employees to upload files</label>
+                    </div>
+
+                    <button class="primary-btn" onclick="savePermissions()">Save Permissions</button>
+                </div>
+
+                <p class="small-note">
+                    These are prototype interface controls, not server-enforced security permissions.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<script>
+
+/* ---------------------------------
+   BURNBOLD HQ - VERSION 3
+   Browser-only prototype
+---------------------------------- */
+
+const CEO_USERNAME = "ceo";
+const CEO_PASSWORD = "burnbold123";
+
+const STORAGE_KEY = "burnbold_v3_data";
+
+let currentUser = null;
+let currentRole = null;
+
+function loadData() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+        try {
+            return JSON.parse(saved);
+        } catch (error) {
+            console.error("Could not read saved data:", error);
+        }
+    }
+
+    return {
+        employees: [],
+        tasks: [],
+        messages: [],
+        files: [],
+        permissions: {
+            messages: true,
+            uploads: true
+        }
+    };
+}
+
+let data = loadData();
+
+function saveData() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (error) {
+        alert("Browser storage is full. Try removing some uploaded files.");
+    }
+}
+
+function safeText(value) {
+    return String(value).replace(/[&<>"']/g, function(char) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char];
+    });
+}
+
+function getEmployee(username) {
+    return data.employees.find(employee =>
+        employee.username.toLowerCase() === username.toLowerCase()
+    );
+}
+
+function isCEO() {
+    return currentRole === "ceo";
+}
+
+/* LOGIN */
+
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    if (username === CEO_USERNAME && password === CEO_PASSWORD) {
+        currentUser = {
+            username: CEO_USERNAME,
+            name: "BURNBOLD CEO"
+        };
+
+        currentRole = "ceo";
+        openApp();
+        return;
+    }
+
+    const employee = getEmployee(username);
+
+    if (employee && employee.password === password) {
+        currentUser = employee;
+        currentRole = "employee";
+        openApp();
+        return;
+    }
+
+    alert("Incorrect username or password.");
+});
+
+function openApp() {
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+
+    document.getElementById("ceoNavigation").classList.toggle("hidden", !isCEO());
+    document.getElementById("createTaskPanel").classList.toggle("hidden", !isCEO());
+
+    renderAll();
+    showPage("dashboard");
+}
+
+function logout() {
+    currentUser = null;
+    currentRole = null;
+
+    document.getElementById("app").classList.add("hidden");
+    document.getElementById("loginScreen").classList.remove("hidden");
+
+    document.getElementById("loginPassword").value = "";
+}
+
+/* NAVIGATION */
+
+function showPage(pageId, button) {
+    if (!isCEO() && ["accounts", "permissions"].includes(pageId)) {
+        alert("Only the CEO can access this section.");
+        return;
+    }
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    const page = document.getElementById(pageId);
+
+    if (page) {
+        page.classList.add("active");
+    }
+
+    document.querySelectorAll(".sidebar button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    if (button) {
+        button.classList.add("active");
+    } else {
+        const buttons = document.querySelectorAll(".sidebar button");
+
+        buttons.forEach(btn => {
+            if (btn.getAttribute("onclick")?.includes("'" + pageId + "'")) {
+                btn.classList.add("active");
+            }
+        });
+    }
+
+    renderAll();
+}
+
+/* EMPLOYEE ACCOUNTS */
+
+document.getElementById("employeeForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (!isCEO()) return;
+
+    const name = document.getElementById("employeeName").value.trim();
+    const username = document.getElementById("employeeUsername").value.trim();
+    const password = document.getElementById("employeePassword").value;
+
+    if (username.toLowerCase() === CEO_USERNAME ||
+        getEmployee(username)) {
+        alert("That username is already being used.");
+        return;
+    }
+
+    if (password.length < 6) {
+        alert("Password must contain at least 6 characters.");
+        return;
+    }
+
+    data.employees.push({
+        id: Date.now().toString(),
+        name: name,
+        username: username,
+        password: password,
+        picture: ""
+    });
+
+    saveData();
+
+    this.reset();
+    renderAll();
+
+    alert("Employee account created!");
+});
+
+function deleteEmployee(id) {
+    if (!isCEO()) return;
+
+    const employee = data.employees.find(item => item.id === id);
+
+    if (!employee) return;
+
+    if (!confirm("Delete the account of " + employee.name + "?")) {
+        return;
+    }
+
+    data.employees = data.employees.filter(item => item.id !== id);
+
+    // Remove tasks assigned to this employee.
+    data.tasks = data.tasks.filter(task =>
+        task.assignee !== employee.username
+    );
+
+    saveData();
+    renderAll();
+}
+
+function renderEmployees() {
+    const list = document.getElementById("employeeList");
+
+    if (!data.employees.length) {
+        list.innerHTML = '<p class="empty">No employees yet. Create the first account above.</p>';
+    } else {
+        list.innerHTML = data.employees.map(employee => `
+            <div class="item">
+                <strong>${safeText(employee.name)}</strong>
+                <p>Username: ${safeText(employee.username)}</p>
+                <button class="danger-btn" onclick="deleteEmployee('${employee.id}')">
+                    Delete Account
+                </button>
+            </div>
+        `).join("");
+    }
+
+    const select = document.getElementById("taskAssignee");
+
+    if (!data.employees.length) {
+        select.innerHTML = '<option value="">Create an employee first</option>';
+    } else {
+        select.innerHTML = data.employees.map(employee => `
+            <option value="${safeText(employee.username)}">
+                ${safeText(employee.name)}
+            </option>
+        `).join("");
+    }
+}
+
+/* TASKS */
+
+document.getElementById("taskForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (!isCEO()) return;
+
+    const title = document.getElementById("taskTitle").value.trim();
+    const description = document.getElementById("taskDescription").value.trim();
+    const assignee = document.getElementById("taskAssignee").value;
+
+    if (!assignee || !getEmployee(assignee)) {
+        alert("Create an employee account before assigning tasks.");
+        return;
+    }
+
+    data.tasks.push({
+        id: Date.now().toString(),
+        title: title,
+        description: description,
+        assignee: assignee,
+        completed: false,
+        created: new Date().toLocaleString()
+    });
+
+    saveData();
+    this.reset();
+    renderAll();
+
+    alert("Task assigned successfully!");
+});
+
+function completeTask(id) {
+    const task = data.tasks.find(item => item.id === id);
+
+    if (!task) return;
+
+    if (!isCEO() && task.assignee !== currentUser.username) {
+        alert("You cannot update another employee's task.");
+        return;
+    }
+
+    task.completed = !task.completed;
+
+    saveData();
+    renderAll();
+}
+
+function renderTasks() {
+    const list = document.getElementById("taskList");
+
+    let tasks = data.tasks;
+
+    if (!isCEO()) {
+        tasks = tasks.filter(task =>
+            task.assignee === currentUser.username
+        );
+    }
+
+    if (!tasks.length) {
+        list.innerHTML = '<p class="empty">No tasks available.</p>';
+        return;
+    }
+
+    list.innerHTML = tasks.map(task => {
+        const employee = getEmployee(task.assignee);
+        const employeeName = employee ? employee.name : task.assignee;
+
+        return `
+            <div class="item">
+                <strong>${safeText(task.title)}</strong>
+                <p>${safeText(task.description || "No description")}</p>
+                <p>Assigned to: ${safeText(employeeName)}</p>
+                <p>Created: ${safeText(task.created)}</p>
+
+                <span class="status ${task.completed ? "" : "pending"}">
+                    ${task.completed ? "Completed" : "Pending"}
+                </span>
+
+                <br>
+
+                <button class="secondary-btn" onclick="completeTask('${task.id}')">
+                    ${task.completed ? "Mark Pending" : "Mark Completed"}
+                </button>
+            </div>
+        `;
+    }).join("");
+}
+
+/* MESSAGES */
+
+document.getElementById("messageForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (!isCEO() && !data.permissions.messages) {
+        alert("The CEO has disabled employee messaging.");
+        return;
+    }
+
+    const message = document.getElementById("messageText").value.trim();
+
+    if (!message) return;
+
+    data.messages.push({
+        id: Date.now().toString(),
+        sender: currentUser.name,
+        username: currentUser.username,
+        message: message,
+        time: new Date().toLocaleString()
+    });
+
+    saveData();
+    this.reset();
+    renderAll();
+});
+
+function renderMessages() {
+    const list = document.getElementById("messageList");
+
+    if (!data.messages.length) {
+        list.innerHTML = '<p class="empty">No messages yet. Start the conversation!</p>';
+    } else {
+        list.innerHTML = data.messages.map(message => `
+            <div class="message">
+                <strong>${safeText(message.sender)}</strong>
+                <small> · ${safeText(message.time)}</small>
+                <p>${safeText(message.message)}</p>
+            </div>
+        `).join("");
+    }
+
+    document.getElementById("messageComposer").classList.toggle(
+        "hidden",
+        !isCEO() && !data.permissions.messages
+    );
+}
+
+/* FILE UPLOADS */
+
+document.getElementById("fileForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (!isCEO() && !data.permissions.uploads) {
+        alert("The CEO has disabled employee uploads.");
+        return;
+    }
+
+    const file = document.getElementById("fileInput").files[0];
+
+    if (!file) return;
+
+    // Keep the prototype's storage usage limited.
+    if (file.size > 1024 * 1024) {
+        alert("Please choose a file smaller than 1 MB.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        data.files.push({
+            id: Date.now().toString(),
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            uploadedBy: currentUser.name,
+            content: reader.result
+        });
+
+        saveData();
+        document.getElementById("fileForm").reset();
+        renderAll();
+
+        alert("File uploaded!");
+    };
+
+    reader.readAsDataURL(file);
+});
+
+function deleteFile(id) {
+    if (!isCEO()) return;
+
+    if (!confirm("Delete this file?")) return;
+
+    data.files = data.files.filter(file => file.id !== id);
+
+    saveData();
+    renderAll();
+}
+
+function renderFiles() {
+    const list = document.getElementById("fileList");
+
+    document.getElementById("fileForm").classList.toggle(
+        "hidden",
+        !isCEO() && !data.permissions.uploads
+    );
+
+    if (!data.files.length) {
+        list.innerHTML = '<p class="empty">No files uploaded yet.</p>';
+        return;
+    }
+
+    list.innerHTML = data.files.map(file => `
+        <div class="item">
+            <strong>${safeText(file.name)}</strong>
+            <p>Uploaded by: ${safeText(file.uploadedBy)}</p>
+            <p>Size: ${(file.size / 1024).toFixed(1)} KB</p>
+
+            <a href="${file.content}" download="${encodeURIComponent(file.name)}">
+                <button class="secondary-btn">Download File</button>
+            </a>
+
+            ${isCEO() ? `
+                <button class="danger-btn" onclick="deleteFile('${file.id}')">
+                    Delete
+                </button>
+            ` : ""}
+        </div>
+    `).join("");
+}
+
+/* PROFILE */
+
+document.getElementById("profileForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("profileNameInput").value.trim();
+    const pictureFile = document.getElementById("profilePicture").files[0];
+
+    if (isCEO()) {
+        currentUser.name = name;
+        updateProfileDisplay();
+        alert("Profile updated for this session.");
+        return;
+    }
+
+    const employee = getEmployee(currentUser.username);
+
+    if (!employee) return;
+
+    function saveProfile(picture) {
+        employee.name = name;
+
+        if (picture) {
+            employee.picture = picture;
+        }
+
+        currentUser = employee;
+
+        saveData();
+        renderAll();
+
+        alert("Profile updated!");
+    }
+
+    if (pictureFile) {
+        if (!pictureFile.type.startsWith("image/")) {
+            alert("Please select an image.");
+            return;
+        }
+
+        if (pictureFile.size > 1024 * 1024) {
+            alert("Please choose an image smaller than 1 MB.");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            saveProfile(reader.result);
+        };
+
+        reader.readAsDataURL(pictureFile);
+    } else {
+        saveProfile(null);
+    }
+});
+
+function updateProfileDisplay() {
+    document.getElementById("profileName").textContent = currentUser.name;
+    document.getElementById("profileNameInput").value = currentUser.name;
+
+    document.getElementById("profileRole").textContent =
+        isCEO() ? "Chief Executive Officer" : "Employee";
+
+    const avatar = document.getElementById("profileAvatar");
+
+    if (!isCEO() && currentUser.picture) {
+        avatar.innerHTML = `<img src="${currentUser.picture}" alt="Profile picture">`;
+    } else {
+        avatar.textContent = currentUser.name.charAt(0).toUpperCase();
+    }
+}
+
+/* CEO PERMISSIONS */
+
+function renderPermissions() {
+    document.getElementById("allowMessages").checked =
+        data.permissions.messages;
+
+    document.getElementById("allowUploads").checked =
+        data.permissions.uploads;
+}
+
+function savePermissions() {
+    if (!isCEO()) return;
+
+    data.permissions.messages =
+        document.getElementById("allowMessages").checked;
+
+    data.permissions.uploads =
+        document.getElementById("allowUploads").checked;
+
+    saveData();
+    renderAll();
+
+    alert("Permissions saved!");
+}
+
+/* DASHBOARD */
+
+function renderDashboard() {
+    document.getElementById("welcomeText").textContent =
+        "Welcome, " + currentUser.name + ".";
+
+    document.getElementById("employeeCount").textContent =
+        data.employees.length;
+
+    const visibleTasks = isCEO()
+        ? data.tasks
+        : data.tasks.filter(task => task.assignee === currentUser.username);
+
+    document.getElementById("taskCount").textContent =
+        visibleTasks.length;
+
+    document.getElementById("completedCount").textContent =
+        visibleTasks.filter(task => task.completed).length;
+
+    document.getElementById("messageCount").textContent =
+        data.messages.length;
+
+    const recent = document.getElementById("recentActivity");
+
+    const recentMessages = data.messages.slice(-3).reverse();
+
+    if (!recentMessages.length) {
+        recent.innerHTML = '<p class="empty">No recent activity.</p>';
+    } else {
+        recent.innerHTML = recentMessages.map(message => `
+            <div class="item">
+                <strong>${safeText(message.sender)}</strong>
+                <p>${safeText(message.message)}</p>
+            </div>
+        `).join("");
+    }
+}
+
+/* REFRESH ALL SECTIONS */
+
+function renderAll() {
+    if (!currentUser) return;
+
+    // Refresh employee information after profile edits.
+    if (!isCEO()) {
+        currentUser = getEmployee(currentUser.username) || currentUser;
+    }
+
+    renderDashboard();
+    renderEmployees();
+    renderTasks();
+    renderMessages();
+    renderFiles();
+    updateProfileDisplay();
+    renderPermissions();
+
+    document.getElementById("createTaskPanel").classList.toggle("hidden", !isCEO());
+}
+
+/* INITIAL SETUP */
+
+console.log("BURNBOLD HQ Version 3 loaded.");
+console.log("Prototype CEO username: ceo");
+console.log("Prototype CEO password: burnbold123");
+
+</script>
+
+</body>
+</html>
