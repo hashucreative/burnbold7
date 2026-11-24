@@ -1,81 +1,128 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BURNBOLD HQ</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f4f8;
-      color: #172033;
-    }
-    header {
-      background: #101b35;
-      color: white;
-      padding: 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    header h1 { margin: 0; letter-spacing: 2px; }
-    header small { color: #b9c5dc; }
-    main { max-width: 950px; margin: 30px auto; padding: 0 16px; }
-    .panel {
-      background: white;
-      padding: 22px;
-      margin-bottom: 20px;
-      border-radius: 14px;
-      box-shadow: 0 3px 15px #17203312;
-    }
-    h2 { margin-top: 0; }
-    input, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin: 7px 0;
-      border-radius: 8px;
-      font: inherit;
-    }
-    input, textarea {
-      border: 1px solid #ccd3df;
-      background: white;
-    }
-    textarea { min-height: 90px; resize: vertical; }
-    button {
-      border: 0;
-      background: #2457d6;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover { background: #1743ae; }
-    button.secondary { background: #596579; }
-    button:disabled { opacity: .5; cursor: not-allowed; }
-    .hidden { display: none !important; }
-    .muted { color: #68748a; font-size: 14px; }
-    .item {
-      border: 1px solid #e0e5ed;
-      padding: 14px;
-      border-radius: 9px;
-      margin: 10px 0;
-      overflow-wrap: anywhere;
-    }
-    .item h3 { margin: 0 0 8px; }
-    .status { color: #2457d6; font-weight: bold; }
-    .error { color: #b42318; }
-    .success { color: #167044; }
-    .top-actions { display: flex; gap: 10px; align-items: center; }
-    .top-actions button { width: auto; margin: 0; }
-    @media (max-width: 600px) {
-      header { align-items: flex-start; flex-direction: column; }
-      .top-actions { width: 100%; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BURNBOLD HQ</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f4f8;
+  color: #172033;
+}
+
+header {
+  background: #101b35;
+  color: white;
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+header h1 {
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+header small { color: #b9c5dc; }
+
+main {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
+.panel {
+  background: white;
+  padding: 22px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  box-shadow: 0 3px 15px #17203312;
+}
+
+h2 { margin-top: 0; }
+
+input, textarea, button {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0;
+  border-radius: 8px;
+  font: inherit;
+}
+
+input, textarea {
+  border: 1px solid #ccd3df;
+  background: white;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+button {
+  border: 0;
+  background: #2457d6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover { background: #1743ae; }
+button.secondary { background: #596579; }
+button.danger { background: #b42318; }
+button.small {
+  width: auto;
+  padding: 9px 14px;
+}
+
+.hidden { display: none !important; }
+.muted { color: #68748a; font-size: 14px; }
+.error { color: #b42318; }
+.success { color: #167044; }
+
+.item {
+  border: 1px solid #e0e5ed;
+  padding: 14px;
+  border-radius: 9px;
+  margin: 10px 0;
+  overflow-wrap: anywhere;
+}
+
+.item h3 { margin-top: 0; }
+.status { color: #2457d6; font-weight: bold; }
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-actions button {
+  width: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  header { align-items: flex-start; flex-direction: column; }
+  .top-actions { width: 100%; }
+}
+</style>
 </head>
+
 <body>
 
 <header>
@@ -83,6 +130,7 @@
     <h1>BURNBOLD</h1>
     <small>Dream Without Limits · HQ</small>
   </div>
+
   <div class="top-actions">
     <span id="welcome"></span>
     <button id="logoutBtn" class="secondary hidden">Log out</button>
@@ -90,20 +138,26 @@
 </header>
 
 <main>
+
   <section id="authPanel" class="panel">
     <h2>Welcome to BURNBOLD HQ</h2>
-    <p class="muted">Sign in or create an employee account.</p>
+    <p class="muted">Your company workspace.</p>
 
-    <input id="nameInput" placeholder="Your name (for registration)">
+    <div id="registerFields">
+      <input id="nameInput" placeholder="Your name">
+    </div>
+
     <input id="emailInput" type="email" placeholder="Email address">
     <input id="passwordInput" type="password" placeholder="Password">
 
     <button id="loginBtn">Log in</button>
     <button id="registerBtn" class="secondary">Create employee account</button>
+
     <p id="authMessage" aria-live="polite"></p>
   </section>
 
   <section id="dashboard" class="hidden">
+
     <div class="panel">
       <h2>Dashboard</h2>
       <p id="roleText" class="muted"></p>
@@ -112,9 +166,11 @@
 
     <section id="adminPanel" class="panel hidden">
       <h2>CEO — Assign a task</h2>
+
       <input id="taskTitle" placeholder="Task title">
       <textarea id="taskDescription" placeholder="Describe the task"></textarea>
       <input id="assigneeEmail" type="email" placeholder="Employee email address">
+
       <button id="createTaskBtn">Assign task</button>
       <p id="taskMessage" aria-live="polite"></p>
     </section>
@@ -130,196 +186,366 @@
       <button id="sendMessageBtn">Send message</button>
       <div id="messagesList">Loading messages...</div>
     </section>
+
   </section>
+
 </main>
 
 <script type="module">
-  import { initializeApp } from
-    "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 
-  import {
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc,
-    collection,
-    addDoc,
-    getDocs,
-    query,
-    where,
-    orderBy,
-    serverTimestamp,
-    updateDoc
-  } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
-  // Your Firebase project configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyBR1y70pDMJ7Mz_SisBjSmSbia7z23nycI",
-    authDomain: "burnbold-hq.firebaseapp.com",
-    projectId: "burnbold-hq",
-    storageBucket: "burnbold-hq.firebasestorage.app",
-    messagingSenderId: "671713022642",
-    appId: "1:671713022642:web:421878ea30f65e2b632fab",
-    measurementId: "G-B92H445BG4"
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  serverTimestamp,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+// BURNBOLD FIREBASE CONFIGURATION
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBR1y70pDMJ7Mz_SisBjSmSbia7z23nycI",
+  authDomain: "burnbold-hq.firebaseapp.com",
+  projectId: "burnbold-hq",
+  storageBucket: "burnbold-hq.firebasestorage.app",
+  messagingSenderId: "671713022642",
+  appId: "1:671713022642:web:421878ea30f65e2b632fab",
+  measurementId: "G-B92H445BG4"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const $ = id => document.getElementById(id);
+
+let currentUser = null;
+let currentProfile = null;
+let isAdmin = false;
+
+function showMessage(id, message, type = "") {
+  const el = $(id);
+  el.textContent = message;
+  el.className = type;
+}
+
+function friendlyError(error) {
+  const messages = {
+    "auth/invalid-email": "Please enter a valid email address.",
+    "auth/invalid-credential": "Incorrect email or password.",
+    "auth/email-already-in-use": "This email already has an account. Please log in.",
+    "auth/weak-password": "Password must contain at least 6 characters.",
+    "auth/too-many-requests": "Too many attempts. Please try again later.",
+    "permission-denied": "Permission denied. Check your Firestore security rules."
   };
 
-  // Replace this after creating your CEO account.
-  const ADMIN_UID = "PASTE_YOUR_CEO_UID_HERE";
+  return messages[error.code] || error.message || "Something went wrong.";
+}
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+// EMPLOYEE REGISTRATION
 
-  const $ = id => document.getElementById(id);
-  let currentUser = null;
-  let isAdmin = false;
+$("registerBtn").addEventListener("click", async () => {
+  const name = $("nameInput").value.trim();
+  const email = $("emailInput").value.trim().toLowerCase();
+  const password = $("passwordInput").value;
 
-  function showMessage(id, message, type = "") {
-    const el = $(id);
-    el.textContent = message;
-    el.className = type;
+  if (!name || !email || !password) {
+    showMessage("authMessage", "Enter your name, email and password.", "error");
+    return;
   }
 
-  function friendlyError(error) {
-    const messages = {
-      "auth/invalid-email": "Please enter a valid email address.",
-      "auth/invalid-credential": "Incorrect email or password.",
-      "auth/email-already-in-use": "This email already has an account. Please log in.",
-      "auth/weak-password": "Choose a password with at least 6 characters.",
-      "auth/too-many-requests": "Too many attempts. Please try again later.",
-      "permission-denied": "Permission denied. Check your Firestore security rules."
-    };
-    return messages[error.code] || error.message || "Something went wrong.";
+  try {
+    const result = await createUserWithEmailAndPassword(
+      auth, email, password
+    );
+
+    await setDoc(doc(db, "users", result.user.uid), {
+      name,
+      email,
+      role: "employee",
+      createdAt: serverTimestamp()
+    });
+
+    showMessage("authMessage", "Employee account created!", "success");
+
+  } catch (error) {
+    showMessage("authMessage", friendlyError(error), "error");
+  }
+});
+
+// LOGIN
+
+$("loginBtn").addEventListener("click", async () => {
+  const email = $("emailInput").value.trim().toLowerCase();
+  const password = $("passwordInput").value;
+
+  if (!email || !password) {
+    showMessage("authMessage", "Enter your email and password.", "error");
+    return;
   }
 
-  $("registerBtn").addEventListener("click", async () => {
-    const name = $("nameInput").value.trim();
-    const email = $("emailInput").value.trim().toLowerCase();
-    const password = $("passwordInput").value;
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    showMessage("authMessage", friendlyError(error), "error");
+  }
+});
 
-    if (!name || !email || !password) {
-      showMessage("authMessage", "Enter your name, email and password.", "error");
-      return;
-    }
+// LOGOUT
 
-    try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
+$("logoutBtn").addEventListener("click", () => signOut(auth));
 
-      await setDoc(doc(db, "users", result.user.uid), {
-        name,
-        email,
+// AUTHENTICATION STATE
+
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  currentProfile = null;
+  isAdmin = false;
+
+  if (!user) {
+    $("authPanel").classList.remove("hidden");
+    $("dashboard").classList.add("hidden");
+    $("logoutBtn").classList.add("hidden");
+    $("welcome").textContent = "";
+    return;
+  }
+
+  try {
+    const profileRef = doc(db, "users", user.uid);
+    let profileSnap = await getDoc(profileRef);
+
+    if (!profileSnap.exists()) {
+      await setDoc(profileRef, {
+        name: user.email.split("@")[0],
+        email: user.email,
         role: "employee",
         createdAt: serverTimestamp()
       });
 
-      showMessage("authMessage", "Account created! Welcome to BURNBOLD.", "success");
-    } catch (error) {
-      showMessage("authMessage", friendlyError(error), "error");
+      profileSnap = await getDoc(profileRef);
     }
-  });
 
-  $("loginBtn").addEventListener("click", async () => {
-    const email = $("emailInput").value.trim().toLowerCase();
-    const password = $("passwordInput").value;
+    currentProfile = profileSnap.data();
+    isAdmin = currentProfile.role === "ceo";
 
-    if (!email || !password) {
-      showMessage("authMessage", "Enter your email and password.", "error");
+    $("welcome").textContent = currentProfile.name;
+    $("roleText").textContent = isAdmin ? "CEO account" : "Employee account";
+
+    $("authPanel").classList.add("hidden");
+    $("dashboard").classList.remove("hidden");
+    $("logoutBtn").classList.remove("hidden");
+    $("adminPanel").classList.toggle("hidden", !isAdmin);
+
+    await loadTasks();
+    await loadMessages();
+
+  } catch (error) {
+    alert("Could not load your account: " + friendlyError(error));
+  }
+});
+
+// LOAD TASKS
+
+async function loadTasks() {
+  const list = $("tasksList");
+  list.textContent = "Loading tasks...";
+
+  try {
+    const taskQuery = isAdmin
+      ? collection(db, "tasks")
+      : query(
+          collection(db, "tasks"),
+          where("assignedTo", "==", currentUser.uid)
+        );
+
+    const snapshot = await getDocs(taskQuery);
+    list.replaceChildren();
+
+    if (snapshot.empty) {
+      list.textContent = "No tasks yet.";
       return;
     }
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      showMessage("authMessage", "Login successful!", "success");
-    } catch (error) {
-      showMessage("authMessage", friendlyError(error), "error");
-    }
-  });
+    snapshot.forEach(taskDoc => {
+      const task = taskDoc.data();
+      const card = document.createElement("div");
+      card.className = "item";
 
-  $("logoutBtn").addEventListener("click", () => signOut(auth));
+      const title = document.createElement("h3");
+      title.textContent = task.title || "Untitled task";
 
-  onAuthStateChanged(auth, async user => {
-    currentUser = user;
+      const description = document.createElement("p");
+      description.textContent = task.description || "";
 
-    if (!user) {
-      isAdmin = false;
-      $("authPanel").classList.remove("hidden");
-      $("dashboard").classList.add("hidden");
-      $("logoutBtn").classList.add("hidden");
-      $("welcome").textContent = "";
-      return;
-    }
+      const assigned = document.createElement("p");
+      assigned.className = "muted";
+      assigned.textContent = "Assigned to: " + (task.assignedEmail || "Employee");
 
-    isAdmin = user.uid === ADMIN_UID;
+      const status = document.createElement("p");
+      status.className = "status";
+      status.textContent = "Status: " + (task.status || "Pending");
 
-    try {
-      const profileRef = doc(db, "users", user.uid);
-      const profileSnap = await getDoc(profileRef);
+      card.append(title, description, assigned, status);
 
-      if (!profileSnap.exists()) {
-        await setDoc(profileRef, {
-          name: user.email.split("@")[0],
-          email: user.email,
-          role: "employee",
-          createdAt: serverTimestamp()
+      if (!isAdmin && task.status !== "Completed") {
+        const completeButton = document.createElement("button");
+        completeButton.textContent = "Mark as completed";
+        completeButton.className = "small";
+
+        completeButton.addEventListener("click", async () => {
+          try {
+            await updateDoc(doc(db, "tasks", taskDoc.id), {
+              status: "Completed"
+            });
+            await loadTasks();
+          } catch (error) {
+            alert(friendlyError(error));
+          }
         });
+
+        card.appendChild(completeButton);
       }
 
-      const profile = (await getDoc(profileRef)).data();
-      $("welcome").textContent = profile.name;
-      $("roleText").textContent = isAdmin ? "CEO account" : "Employee account";
+      list.appendChild(card);
+    });
 
-      $("authPanel").classList.add("hidden");
-      $("dashboard").classList.remove("hidden");
-      $("logoutBtn").classList.remove("hidden");
-      $("adminPanel").classList.toggle("hidden", !isAdmin);
+  } catch (error) {
+    list.textContent = friendlyError(error);
+  }
+}
 
-      await loadTasks();
-      await loadMessages();
-    } catch (error) {
-      alert("Could not load your account: " + friendlyError(error));
+// ASSIGN TASK — CEO ONLY
+
+$("createTaskBtn").addEventListener("click", async () => {
+  if (!isAdmin) return;
+
+  const title = $("taskTitle").value.trim();
+  const description = $("taskDescription").value.trim();
+  const email = $("assigneeEmail").value.trim().toLowerCase();
+
+  if (!title || !email) {
+    showMessage("taskMessage", "Enter a task title and employee email.", "error");
+    return;
+  }
+
+  try {
+    const employeeQuery = query(
+      collection(db, "users"),
+      where("email", "==", email)
+    );
+
+    const employeeSnapshot = await getDocs(employeeQuery);
+
+    if (employeeSnapshot.empty) {
+      showMessage("taskMessage", "Employee account not found.", "error");
+      return;
     }
-  });
 
-  async function loadTasks() {
-    const list = $("tasksList");
-    list.textContent = "Loading tasks...";
+    const employeeDoc = employeeSnapshot.docs[0];
 
-    try {
-      const taskQuery = isAdmin
-        ? collection(db, "tasks")
-        : query(collection(db, "tasks"), where("assignedTo", "==", currentUser.uid));
+    await addDoc(collection(db, "tasks"), {
+      title,
+      description,
+      assignedTo: employeeDoc.id,
+      assignedEmail: email,
+      status: "Pending",
+      createdBy: currentUser.uid,
+      createdAt: serverTimestamp()
+    });
 
-      const snapshot = await getDocs(taskQuery);
-      list.replaceChildren();
+    $("taskTitle").value = "";
+    $("taskDescription").value = "";
+    $("assigneeEmail").value = "";
 
-      if (snapshot.empty) {
-        list.textContent = "No tasks yet.";
-        return;
-      }
+    showMessage("taskMessage", "Task assigned successfully!", "success");
+    await loadTasks();
 
-      snapshot.forEach(taskDoc => {
-        const task = taskDoc.data();
-        const card = document.createElement("div");
-        card.className = "item";
+  } catch (error) {
+    showMessage("taskMessage", friendlyError(error), "error");
+  }
+});
 
-        const title = document.createElement("h3");
-        title.textContent = task.title || "Untitled task";
+// SEND TEAM MESSAGE
 
-        const description = document.createElement("p");
-        description.textContent = task.description || "";
+$("sendMessageBtn").addEventListener("click", async () => {
+  const message = $("messageInput").value.trim();
 
-        const assigned = document.createElement("p");
-        assigned.className = "muted";
-        assigned.textContent = "Assigned to: " + (task.assignedEmail || "Employee");
+  if (!message) return;
 
-        const status = document.createElement("p");
-        status.className = "status";
-        status.textContent = "Status: " +
+  try {
+    await addDoc(collection(db, "messages"), {
+      text: message,
+      sender: currentProfile.name,
+      senderId: currentUser.uid,
+      createdAt: serverTimestamp()
+    });
+
+    $("messageInput").value = "";
+    await loadMessages();
+
+  } catch (error) {
+    alert(friendlyError(error));
+  }
+});
+
+// LOAD TEAM MESSAGES
+
+async function loadMessages() {
+  const list = $("messagesList");
+  list.textContent = "Loading messages...";
+
+  try {
+    const messageQuery = query(
+      collection(db, "messages"),
+      orderBy("createdAt", "desc")
+    );
+
+    const snapshot = await getDocs(messageQuery);
+    list.replaceChildren();
+
+    if (snapshot.empty) {
+      list.textContent = "No messages yet.";
+      return;
+    }
+
+    snapshot.forEach(messageDoc => {
+      const message = messageDoc.data();
+      const card = document.createElement("div");
+      card.className = "item";
+
+      const sender = document.createElement("strong");
+      sender.textContent = message.sender || "Employee";
+
+      const content = document.createElement("p");
+      content.textContent = message.text || "";
+
+      card.append(sender, content);
+      list.appendChild(card);
+    });
+
+  } catch (error) {
+    list.textContent = friendlyError(error);
+  }
+}
+
+</script>
+</body>
+</html>
