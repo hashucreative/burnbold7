@@ -4,13 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BURNBOLD HQ | Version 3</title>
+<title>BURNBOLD HQ</title>
 
 <style>
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -80,6 +80,13 @@ input:focus, textarea:focus, select:focus {
     border-color: #2466ad;
 }
 
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 13px;
+    color: #35445c;
+}
+
 .primary-btn {
     background: #153d70;
     color: white;
@@ -100,7 +107,7 @@ input:focus, textarea:focus, select:focus {
     margin-top: 15px;
 }
 
-/* MAIN APP */
+/* APP */
 
 #app {
     min-height: 100vh;
@@ -113,7 +120,6 @@ input:focus, textarea:focus, select:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
 }
 
 .topbar h2 {
@@ -195,7 +201,7 @@ input:focus, textarea:focus, select:focus {
     margin: 20px 0;
 }
 
-.card {
+.card, .panel {
     background: white;
     padding: 22px;
     border-radius: 11px;
@@ -214,11 +220,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .panel {
-    background: white;
-    padding: 22px;
-    border-radius: 11px;
     margin: 18px 0;
-    box-shadow: 0 3px 12px #1720330b;
 }
 
 .panel h2 {
@@ -243,20 +245,20 @@ input:focus, textarea:focus, select:focus {
     margin-top: 6px;
 }
 
-.danger-btn {
-    background: #ffe7e7;
-    color: #a52b2b;
+.danger-btn, .secondary-btn {
     padding: 8px 12px;
     border-radius: 6px;
     margin-top: 8px;
 }
 
+.danger-btn {
+    background: #ffe7e7;
+    color: #a52b2b;
+}
+
 .secondary-btn {
     background: #e8eef7;
     color: #173d70;
-    padding: 9px 13px;
-    border-radius: 6px;
-    margin-top: 5px;
 }
 
 .profile {
@@ -327,13 +329,6 @@ input:focus, textarea:focus, select:focus {
     padding: 15px 0;
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    font-size: 13px;
-    color: #35445c;
-}
-
 .inline-check {
     display: flex;
     align-items: center;
@@ -350,7 +345,7 @@ label {
     font-weight: normal;
 }
 
-@media (max-width: 700px) {
+@media(max-width:700px) {
     .layout {
         flex-direction: column;
     }
@@ -385,7 +380,7 @@ label {
 
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 
 <div id="loginScreen">
     <div class="login-box">
@@ -402,256 +397,250 @@ label {
             <button class="primary-btn" type="submit">Login to HQ</button>
         </form>
 
-        <div class="small-note">
-            BURNBOLD HQ Version 3 prototype
-        </div>
+        <div class="small-note">BURNBOLD HQ Version 3</div>
     </div>
 </div>
 
-<!-- MAIN APPLICATION -->
+<!-- MAIN APP -->
 
 <div id="app" class="hidden">
 
-    <header class="topbar">
-        <h2>BURNBOLD HQ</h2>
-        <button onclick="logout()">Logout</button>
-    </header>
+<header class="topbar">
+    <h2>BURNBOLD HQ</h2>
+    <button onclick="logout()">Logout</button>
+</header>
 
-    <div class="layout">
+<div class="layout">
 
-        <aside class="sidebar">
-            <button class="active" onclick="showPage('dashboard', this)">Dashboard</button>
-            <button onclick="showPage('tasks', this)">Tasks</button>
-            <button onclick="showPage('messages', this)">Messages</button>
-            <button onclick="showPage('files', this)">Files</button>
-            <button onclick="showPage('profile', this)">My Profile</button>
+<aside class="sidebar">
+    <button class="active" onclick="showPage('dashboard',this)">Dashboard</button>
+    <button onclick="showPage('tasks',this)">Tasks</button>
+    <button onclick="showPage('messages',this)">Messages</button>
+    <button onclick="showPage('files',this)">Files</button>
+    <button onclick="showPage('profile',this)">My Profile</button>
 
-            <div id="ceoNavigation">
-                <div class="sidebar-label">CEO CONTROLS</div>
-                <button onclick="showPage('accounts', this)">Accounts</button>
-                <button onclick="showPage('permissions', this)">Permissions</button>
-            </div>
-        </aside>
-
-        <main class="main">
-
-            <!-- DASHBOARD -->
-
-            <section id="dashboard" class="page active">
-                <h1>Dashboard</h1>
-                <p class="subtitle" id="welcomeText">Welcome to BURNBOLD HQ.</p>
-
-                <div class="cards">
-                    <div class="card">
-                        <h3>Employees</h3>
-                        <strong id="employeeCount">0</strong>
-                    </div>
-
-                    <div class="card">
-                        <h3>Total Tasks</h3>
-                        <strong id="taskCount">0</strong>
-                    </div>
-
-                    <div class="card">
-                        <h3>Completed Tasks</h3>
-                        <strong id="completedCount">0</strong>
-                    </div>
-
-                    <div class="card">
-                        <h3>Messages</h3>
-                        <strong id="messageCount">0</strong>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <h2>Recent Activity</h2>
-                    <div id="recentActivity"></div>
-                </div>
-            </section>
-
-            <!-- ACCOUNTS -->
-
-            <section id="accounts" class="page">
-                <h1>Employee Accounts</h1>
-                <p class="subtitle">Create and manage employee accounts.</p>
-
-                <div class="panel">
-                    <h2>Create Employee Account</h2>
-
-                    <form id="employeeForm">
-                        <label>Employee Name</label>
-                        <input id="employeeName" required placeholder="Employee's full name">
-
-                        <label>Username</label>
-                        <input id="employeeUsername" required placeholder="Choose a username">
-
-                        <label>Password</label>
-                        <input id="employeePassword" type="password" required minlength="6" placeholder="At least 6 characters">
-
-                        <button class="primary-btn" type="submit">Create Account</button>
-                    </form>
-                </div>
-
-                <div class="panel">
-                    <h2>Employee List</h2>
-                    <div id="employeeList"></div>
-                </div>
-            </section>
-
-            <!-- TASKS -->
-
-            <section id="tasks" class="page">
-                <h1>Tasks</h1>
-                <p class="subtitle">Manage company work and assignments.</p>
-
-                <div class="panel" id="createTaskPanel">
-                    <h2>Create New Task</h2>
-
-                    <form id="taskForm">
-                        <label>Task Title</label>
-                        <input id="taskTitle" required placeholder="Enter task title">
-
-                        <label>Task Description</label>
-                        <textarea id="taskDescription" rows="3" placeholder="Describe the task"></textarea>
-
-                        <label>Assign To</label>
-                        <select id="taskAssignee" required></select>
-
-                        <button class="primary-btn" type="submit">Assign Task</button>
-                    </form>
-                </div>
-
-                <div class="panel">
-                    <h2>Task List</h2>
-                    <div id="taskList"></div>
-                </div>
-            </section>
-
-            <!-- MESSAGES -->
-
-            <section id="messages" class="page">
-                <h1>Company Messages</h1>
-                <p class="subtitle">Communicate with your company team.</p>
-
-                <div class="panel">
-                    <h2>Message Board</h2>
-                    <div id="messageList"></div>
-                </div>
-
-                <div class="panel" id="messageComposer">
-                    <h2>Send a Message</h2>
-
-                    <form id="messageForm">
-                        <textarea id="messageText" required rows="3" placeholder="Write your message..."></textarea>
-                        <button class="primary-btn" type="submit">Send Message</button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- FILES -->
-
-            <section id="files" class="page">
-                <h1>Company Files</h1>
-                <p class="subtitle">Upload and view shared files in this browser.</p>
-
-                <div class="panel">
-                    <h2>Upload a File</h2>
-
-                    <form id="fileForm">
-                        <label>Select a file (maximum 1 MB)</label>
-                        <input type="file" id="fileInput" required>
-                        <button class="primary-btn" type="submit">Upload File</button>
-                    </form>
-                </div>
-
-                <div class="panel">
-                    <h2>Uploaded Files</h2>
-                    <div id="fileList"></div>
-                </div>
-            </section>
-
-            <!-- PROFILE -->
-
-            <section id="profile" class="page">
-                <h1>My Profile</h1>
-                <p class="subtitle">View and update your employee profile.</p>
-
-                <div class="panel">
-                    <div class="profile">
-                        <div class="avatar" id="profileAvatar">B</div>
-                        <div>
-                            <h2 id="profileName">Name</h2>
-                            <p id="profileRole">Role</p>
-                        </div>
-                    </div>
-
-                    <form id="profileForm">
-                        <label>Display Name</label>
-                        <input id="profileNameInput" required>
-
-                        <label>Profile Picture</label>
-                        <input type="file" id="profilePicture" accept="image/*">
-
-                        <button class="primary-btn" type="submit">Save Profile</button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- PERMISSIONS -->
-
-            <section id="permissions" class="page">
-                <h1>CEO Permissions</h1>
-                <p class="subtitle">Control which features employees can use.</p>
-
-                <div class="panel">
-                    <h2>Employee Permissions</h2>
-
-                    <div class="inline-check">
-                        <input type="checkbox" id="allowMessages">
-                        <label for="allowMessages">Allow employees to send messages</label>
-                    </div>
-
-                    <div class="inline-check">
-                        <input type="checkbox" id="allowUploads">
-                        <label for="allowUploads">Allow employees to upload files</label>
-                    </div>
-
-                    <button class="primary-btn" onclick="savePermissions()">Save Permissions</button>
-                </div>
-
-                <p class="small-note">
-                    These are prototype interface controls, not server-enforced security permissions.
-                </p>
-            </section>
-
-        </main>
+    <div id="ceoNavigation">
+        <div class="sidebar-label">CEO CONTROLS</div>
+        <button onclick="showPage('accounts',this)">Accounts</button>
+        <button onclick="showPage('permissions',this)">Permissions</button>
     </div>
+</aside>
+
+<main class="main">
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+    <h1>Dashboard</h1>
+    <p class="subtitle" id="welcomeText"></p>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Employees</h3>
+            <strong id="employeeCount">0</strong>
+        </div>
+        <div class="card">
+            <h3>Total Tasks</h3>
+            <strong id="taskCount">0</strong>
+        </div>
+        <div class="card">
+            <h3>Completed Tasks</h3>
+            <strong id="completedCount">0</strong>
+        </div>
+        <div class="card">
+            <h3>Messages</h3>
+            <strong id="messageCount">0</strong>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Recent Activity</h2>
+        <div id="recentActivity"></div>
+    </div>
+</section>
+
+<!-- ACCOUNTS -->
+
+<section id="accounts" class="page">
+    <h1>Employee Accounts</h1>
+    <p class="subtitle">Create and manage employee accounts.</p>
+
+    <div class="panel">
+        <h2>Create Employee Account</h2>
+
+        <form id="employeeForm">
+            <label>Employee Name</label>
+            <input id="employeeName" required>
+
+            <label>Username</label>
+            <input id="employeeUsername" required>
+
+            <label>Password</label>
+            <input id="employeePassword" type="password" minlength="6" required>
+
+            <button class="primary-btn" type="submit">Create Account</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h2>Employee List</h2>
+        <div id="employeeList"></div>
+    </div>
+</section>
+
+<!-- TASKS -->
+
+<section id="tasks" class="page">
+    <h1>Tasks</h1>
+    <p class="subtitle">Manage company work and assignments.</p>
+
+    <div class="panel" id="createTaskPanel">
+        <h2>Create New Task</h2>
+
+        <form id="taskForm">
+            <label>Task Title</label>
+            <input id="taskTitle" required>
+
+            <label>Description</label>
+            <textarea id="taskDescription" rows="3"></textarea>
+
+            <label>Assign To</label>
+            <select id="taskAssignee" required></select>
+
+            <button class="primary-btn" type="submit">Assign Task</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h2>Task List</h2>
+        <div id="taskList"></div>
+    </div>
+</section>
+
+<!-- MESSAGES -->
+
+<section id="messages" class="page">
+    <h1>Company Messages</h1>
+    <p class="subtitle">Communicate with your team.</p>
+
+    <div class="panel">
+        <h2>Message Board</h2>
+        <div id="messageList"></div>
+    </div>
+
+    <div class="panel" id="messageComposer">
+        <h2>Send a Message</h2>
+        <form id="messageForm">
+            <textarea id="messageText" required rows="3" placeholder="Write your message..."></textarea>
+            <button class="primary-btn" type="submit">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<!-- FILES -->
+
+<section id="files" class="page">
+    <h1>Company Files</h1>
+    <p class="subtitle">Upload and view files in this browser.</p>
+
+    <div class="panel" id="fileUploadPanel">
+        <h2>Upload a File</h2>
+        <form id="fileForm">
+            <label>Select a file (maximum 1 MB)</label>
+            <input type="file" id="fileInput" required>
+            <button class="primary-btn" type="submit">Upload File</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h2>Uploaded Files</h2>
+        <div id="fileList"></div>
+    </div>
+</section>
+
+<!-- PROFILE -->
+
+<section id="profile" class="page">
+    <h1>My Profile</h1>
+    <p class="subtitle">Update your profile information.</p>
+
+    <div class="panel">
+        <div class="profile">
+            <div class="avatar" id="profileAvatar">B</div>
+            <div>
+                <h2 id="profileName"></h2>
+                <p id="profileRole"></p>
+            </div>
+        </div>
+
+        <form id="profileForm">
+            <label>Display Name</label>
+            <input id="profileNameInput" required>
+
+            <label>Profile Picture</label>
+            <input type="file" id="profilePicture" accept="image/*">
+
+            <button class="primary-btn" type="submit">Save Profile</button>
+        </form>
+    </div>
+</section>
+
+<!-- PERMISSIONS -->
+
+<section id="permissions" class="page">
+    <h1>CEO Permissions</h1>
+    <p class="subtitle">Control employee features.</p>
+
+    <div class="panel">
+        <h2>Employee Permissions</h2>
+
+        <div class="inline-check">
+            <input type="checkbox" id="allowMessages">
+            <label for="allowMessages">Allow employee messaging</label>
+        </div>
+
+        <div class="inline-check">
+            <input type="checkbox" id="allowUploads">
+            <label for="allowUploads">Allow employee file uploads</label>
+        </div>
+
+        <button class="primary-btn" onclick="savePermissions()">Save Permissions</button>
+    </div>
+</section>
+
+</main>
+</div>
 </div>
 
 <script>
 
-/* ---------------------------------
-   BURNBOLD HQ - VERSION 3
-   Browser-only prototype
----------------------------------- */
+/* DATABASE */
 
 const CEO_USERNAME = "ceo";
 const CEO_PASSWORD = "burnbold123";
-
 const STORAGE_KEY = "burnbold_v3_data";
 
 let currentUser = null;
 let currentRole = null;
 
 function loadData() {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
 
-    if (saved) {
-        try {
-            return JSON.parse(saved);
-        } catch (error) {
-            console.error("Could not read saved data:", error);
+        if (saved) {
+            const parsed = JSON.parse(saved);
+
+            if (
+                Array.isArray(parsed.employees) &&
+                Array.isArray(parsed.tasks) &&
+                Array.isArray(parsed.messages) &&
+                Array.isArray(parsed.files)
+            ) {
+                return parsed;
+            }
         }
+    } catch(error) {
+        console.error(error);
     }
 
     return {
@@ -671,21 +660,19 @@ let data = loadData();
 function saveData() {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch (error) {
-        alert("Browser storage is full. Try removing some uploaded files.");
+    } catch(error) {
+        alert("Browser storage is full. Remove some files and try again.");
     }
 }
 
 function safeText(value) {
-    return String(value).replace(/[&<>"']/g, function(char) {
-        return {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        }[char];
-    });
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
 }
 
 function getEmployee(username) {
@@ -746,7 +733,6 @@ function logout() {
 
     document.getElementById("app").classList.add("hidden");
     document.getElementById("loginScreen").classList.remove("hidden");
-
     document.getElementById("loginPassword").value = "";
 }
 
@@ -758,26 +744,20 @@ function showPage(pageId, button) {
         return;
     }
 
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active");
-    });
+    document.querySelectorAll(".page").forEach(page =>
+        page.classList.remove("active")
+    );
 
-    const page = document.getElementById(pageId);
+    document.getElementById(pageId).classList.add("active");
 
-    if (page) {
-        page.classList.add("active");
-    }
-
-    document.querySelectorAll(".sidebar button").forEach(btn => {
-        btn.classList.remove("active");
-    });
+    document.querySelectorAll(".sidebar button").forEach(btn =>
+        btn.classList.remove("active")
+    );
 
     if (button) {
         button.classList.add("active");
     } else {
-        const buttons = document.querySelectorAll(".sidebar button");
-
-        buttons.forEach(btn => {
+        document.querySelectorAll(".sidebar button").forEach(btn => {
             if (btn.getAttribute("onclick")?.includes("'" + pageId + "'")) {
                 btn.classList.add("active");
             }
@@ -798,27 +778,27 @@ document.getElementById("employeeForm").addEventListener("submit", function(even
     const username = document.getElementById("employeeUsername").value.trim();
     const password = document.getElementById("employeePassword").value;
 
-    if (username.toLowerCase() === CEO_USERNAME ||
-        getEmployee(username)) {
-        alert("That username is already being used.");
+    if (!name || !username) return;
+
+    if (username.toLowerCase() === CEO_USERNAME || getEmployee(username)) {
+        alert("This username is already taken.");
         return;
     }
 
     if (password.length < 6) {
-        alert("Password must contain at least 6 characters.");
+        alert("Password must have at least 6 characters.");
         return;
     }
 
     data.employees.push({
         id: Date.now().toString(),
-        name: name,
-        username: username,
-        password: password,
+        name,
+        username,
+        password,
         picture: ""
     });
 
     saveData();
-
     this.reset();
     renderAll();
 
@@ -832,16 +812,10 @@ function deleteEmployee(id) {
 
     if (!employee) return;
 
-    if (!confirm("Delete the account of " + employee.name + "?")) {
-        return;
-    }
+    if (!confirm("Delete " + employee.name + "'s account?")) return;
 
     data.employees = data.employees.filter(item => item.id !== id);
-
-    // Remove tasks assigned to this employee.
-    data.tasks = data.tasks.filter(task =>
-        task.assignee !== employee.username
-    );
+    data.tasks = data.tasks.filter(task => task.assignee !== employee.username);
 
     saveData();
     renderAll();
@@ -851,7 +825,7 @@ function renderEmployees() {
     const list = document.getElementById("employeeList");
 
     if (!data.employees.length) {
-        list.innerHTML = '<p class="empty">No employees yet. Create the first account above.</p>';
+        list.innerHTML = '<p class="empty">No employees yet.</p>';
     } else {
         list.innerHTML = data.employees.map(employee => `
             <div class="item">
@@ -889,15 +863,15 @@ document.getElementById("taskForm").addEventListener("submit", function(event) {
     const assignee = document.getElementById("taskAssignee").value;
 
     if (!assignee || !getEmployee(assignee)) {
-        alert("Create an employee account before assigning tasks.");
+        alert("Create an employee account first.");
         return;
     }
 
     data.tasks.push({
         id: Date.now().toString(),
-        title: title,
-        description: description,
-        assignee: assignee,
+        title,
+        description,
+        assignee,
         completed: false,
         created: new Date().toLocaleString()
     });
@@ -906,7 +880,7 @@ document.getElementById("taskForm").addEventListener("submit", function(event) {
     this.reset();
     renderAll();
 
-    alert("Task assigned successfully!");
+    alert("Task assigned!");
 });
 
 function completeTask(id) {
@@ -931,9 +905,7 @@ function renderTasks() {
     let tasks = data.tasks;
 
     if (!isCEO()) {
-        tasks = tasks.filter(task =>
-            task.assignee === currentUser.username
-        );
+        tasks = tasks.filter(task => task.assignee === currentUser.username);
     }
 
     if (!tasks.length) {
@@ -972,7 +944,7 @@ document.getElementById("messageForm").addEventListener("submit", function(event
     event.preventDefault();
 
     if (!isCEO() && !data.permissions.messages) {
-        alert("The CEO has disabled employee messaging.");
+        alert("Employee messaging is disabled.");
         return;
     }
 
@@ -984,7 +956,7 @@ document.getElementById("messageForm").addEventListener("submit", function(event
         id: Date.now().toString(),
         sender: currentUser.name,
         username: currentUser.username,
-        message: message,
+        message,
         time: new Date().toLocaleString()
     });
 
@@ -997,7 +969,7 @@ function renderMessages() {
     const list = document.getElementById("messageList");
 
     if (!data.messages.length) {
-        list.innerHTML = '<p class="empty">No messages yet. Start the conversation!</p>';
+        list.innerHTML = '<p class="empty">No messages yet.</p>';
     } else {
         list.innerHTML = data.messages.map(message => `
             <div class="message">
@@ -1020,7 +992,7 @@ document.getElementById("fileForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     if (!isCEO() && !data.permissions.uploads) {
-        alert("The CEO has disabled employee uploads.");
+        alert("Employee uploads are disabled.");
         return;
     }
 
@@ -1028,9 +1000,8 @@ document.getElementById("fileForm").addEventListener("submit", function(event) {
 
     if (!file) return;
 
-    // Keep the prototype's storage usage limited.
     if (file.size > 1024 * 1024) {
-        alert("Please choose a file smaller than 1 MB.");
+        alert("Choose a file smaller than 1 MB.");
         return;
     }
 
@@ -1040,7 +1011,6 @@ document.getElementById("fileForm").addEventListener("submit", function(event) {
         data.files.push({
             id: Date.now().toString(),
             name: file.name,
-            type: file.type,
             size: file.size,
             uploadedBy: currentUser.name,
             content: reader.result
@@ -1070,7 +1040,7 @@ function deleteFile(id) {
 function renderFiles() {
     const list = document.getElementById("fileList");
 
-    document.getElementById("fileForm").classList.toggle(
+    document.getElementById("fileUploadPanel").classList.toggle(
         "hidden",
         !isCEO() && !data.permissions.uploads
     );
@@ -1135,12 +1105,12 @@ document.getElementById("profileForm").addEventListener("submit", function(event
 
     if (pictureFile) {
         if (!pictureFile.type.startsWith("image/")) {
-            alert("Please select an image.");
+            alert("Choose an image file.");
             return;
         }
 
         if (pictureFile.size > 1024 * 1024) {
-            alert("Please choose an image smaller than 1 MB.");
+            alert("Choose an image smaller than 1 MB.");
             return;
         }
 
@@ -1166,13 +1136,19 @@ function updateProfileDisplay() {
     const avatar = document.getElementById("profileAvatar");
 
     if (!isCEO() && currentUser.picture) {
-        avatar.innerHTML = `<img src="${currentUser.picture}" alt="Profile picture">`;
+        avatar.innerHTML = "";
+
+        const img = document.createElement("img");
+        img.src = currentUser.picture;
+        img.alt = "Profile picture";
+
+        avatar.appendChild(img);
     } else {
         avatar.textContent = currentUser.name.charAt(0).toUpperCase();
     }
 }
 
-/* CEO PERMISSIONS */
+/* PERMISSIONS */
 
 function renderPermissions() {
     document.getElementById("allowMessages").checked =
@@ -1206,21 +1182,19 @@ function renderDashboard() {
     document.getElementById("employeeCount").textContent =
         data.employees.length;
 
-    const visibleTasks = isCEO()
+    const tasks = isCEO()
         ? data.tasks
         : data.tasks.filter(task => task.assignee === currentUser.username);
 
-    document.getElementById("taskCount").textContent =
-        visibleTasks.length;
+    document.getElementById("taskCount").textContent = tasks.length;
 
     document.getElementById("completedCount").textContent =
-        visibleTasks.filter(task => task.completed).length;
+        tasks.filter(task => task.completed).length;
 
     document.getElementById("messageCount").textContent =
         data.messages.length;
 
     const recent = document.getElementById("recentActivity");
-
     const recentMessages = data.messages.slice(-3).reverse();
 
     if (!recentMessages.length) {
@@ -1235,12 +1209,11 @@ function renderDashboard() {
     }
 }
 
-/* REFRESH ALL SECTIONS */
+/* RENDER EVERYTHING */
 
 function renderAll() {
     if (!currentUser) return;
 
-    // Refresh employee information after profile edits.
     if (!isCEO()) {
         currentUser = getEmployee(currentUser.username) || currentUser;
     }
@@ -1253,14 +1226,13 @@ function renderAll() {
     updateProfileDisplay();
     renderPermissions();
 
-    document.getElementById("createTaskPanel").classList.toggle("hidden", !isCEO());
+    document.getElementById("createTaskPanel").classList.toggle(
+        "hidden",
+        !isCEO()
+    );
 }
 
-/* INITIAL SETUP */
-
 console.log("BURNBOLD HQ Version 3 loaded.");
-console.log("Prototype CEO username: ceo");
-console.log("Prototype CEO password: burnbold123");
 
 </script>
 
